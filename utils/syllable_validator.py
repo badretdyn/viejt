@@ -60,6 +60,6 @@ class SyllableValidator:
             word = LatinFinder.get_word(graphemes, i)
             #words.append(word)
             syl = SyllableValidator.define_syllable(word)
-            if syl.core != "":
+            if syl.nucleus != "":
                 syls.append(syl)
         return syls
