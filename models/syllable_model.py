@@ -1,5 +1,5 @@
 class Syllable:
-    def __init__(self, initial = "", medial = '', nucleus = "", coda = "", tone = 0):
+    def __init__(self, initial = "", medial = '', nucleus = "", coda = ""):
         self.initial = initial
         self.medial = medial
         self.nucleus = nucleus

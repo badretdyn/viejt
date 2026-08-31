@@ -2,6 +2,7 @@
     "name": "chinese",
     "desc": "sino-tibetan language",
     "initials": [
+    "",
     "b",
     "c",
     "ch",
@@ -27,11 +28,14 @@
     "zh"
 ],
     "medials": [
+    "",
     "i",
     "u"
 ]
     ,
     "nuclei": [
+    "",
+
     "a",
     "ā",
     "á",
@@ -69,10 +73,37 @@
     "ǜ"
 ],
     "codas": [
+    "",
     "i",
     "n",
     "ng",
     "o",
     "u"
-]
+],
+    "restrictions": [
+        {
+            "nuclei": [""]
+        },
+        {
+            "medials": ["i"],
+            "nuclei": ["i", "ī", "í", "ǐ", "ì"]
+        },
+        {
+            "medials": ["u"],
+            "nuclei": ["u", "ū", "ú", "ǔ", "ù", "ü", "ǖ", "ǘ", "ǚ", "ǜ"]
+        },
+        {
+            "initials": [""],
+            "medials": ["i", "u"]
+        },
+        {
+            "initials": [""],
+            "nuclei": ["i", "u"]
+        },
+        {
+            "initials": ["x", "j", "q"],
+            "medials": [""],
+            "nuclei": ["a", "e", "o", "ü"]
+        }
+    ]
 }
