@@ -2,14 +2,26 @@ from utils.json_handler import JsonHandler
 from models.syllable_model import Syllable
 
 class Language:
-    def __init__(self, initials, medials, nuclei, codas, restrictions = None):
+    def __init__(self, initials = None, medials = None, nuclei = None, codas = None, restrictions = None, name = "", desc = ""):
+        if initials is None:
+            initials = []
+        if medials is None:
+            medials = []
+        if nuclei is None:
+            nuclei = []
+        if codas is None:
+            codas = []
         if restrictions is None:
             restrictions = []
+        
         self.initials = initials
         self.medials = medials
         self.nuclei = nuclei
         self.codas = codas
         self.restrictions = restrictions
+        self.name = name
+        self.desc = desc
+        self.debug_mode = False
 
     # @classmethod
     # def from_json_file(cls, path : str):
@@ -24,7 +36,9 @@ class Language:
             js.get("medials", []),
             js.get("nuclei", []),
             js.get("codas", []),
-            js.get("restrictions", [])
+            js.get("restrictions", []),
+            js.get("name", ""),
+            js.get("desc", "")
         )
 
     def random_syl(self) -> Syllable:
@@ -43,12 +57,20 @@ class Language:
         return Syllable(initial, medial, nucleus, coda)
 
     def is_valid_syllable(self, syl : Syllable):
+        
+        print(f"syl\t{syl}") if self.debug_mode else False
 
-        print(f"syl\t{syl}")
+        if not syl.initial in self.initials or not syl.medial in self.medials or not syl.nucleus in self.nuclei or not syl.coda in self.codas:
+            print(f"\texit fl\t\tsome component does not exist") if self.debug_mode else False
+            return False
+
+        if self.restrictions == []:
+            print("\texit tr\t\tthere are no restrictons") if self.logging else False
+            return True
 
         for restriction in self.restrictions:
 
-            print(f"rst\t\t{restriction}")
+            print(f"\trestr\t\t{restriction}") if self.debug_mode else False
             
             inInitials = syl.initial in (restriction.get("initials") or [])
             inMedials = syl.medial in (restriction.get("medials") or [])
@@ -67,7 +89,7 @@ class Language:
             if restriction.get("codas") is not None:
                 specified_parts += 1
 
-            print(f"\t\t{inInitials} {inMedials} {inNuclei} {inCodas} = {not (true_count == specified_parts and specified_parts > 0)}")
+            print(f"\tcmpnts\t\t{inInitials} {inMedials} {inNuclei} {inCodas} = {not (true_count == specified_parts and specified_parts > 0)}")  if self.debug_mode else False
 
             if true_count == specified_parts and specified_parts > 0:
                 return False
@@ -88,8 +110,8 @@ class Language:
             syl = self.random_syllable()
         return syl
 
-    def __str__(self):
-        return f"Language {{ {self.initials!r}, {self.medials!r}, {self.nuclei!r}, {self.codas!r} }}"
+    def __str__(self, separator = " "):
+        return f"Language {{ name:{self.name},{separator}desc:{self.desc},{separator}initials:{self.initials!r},{separator}medials:{self.medials!r},{separator}nuclei:{self.nuclei!r},{separator}codas:{self.codas!r} }}"
 
     def __repr__(self):
         return self.__str__()
