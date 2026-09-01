@@ -2,7 +2,7 @@ from utils.json_handler import JsonHandler
 from models.syllable_model import Syllable
 
 class Language:
-    def __init__(self, initials = None, medials = None, nuclei = None, codas = None, restrictions = None, name = "", desc = ""):
+    def __init__(self, initials = None, medials = None, nuclei = None, codas = None, restrictions : dict = None, name = "", desc = ""):
         if initials is None:
             initials = []
         if medials is None:
@@ -13,6 +13,10 @@ class Language:
             codas = []
         if restrictions is None:
             restrictions = []
+
+        for restriction in restrictions:
+            if restriction.get("mode") not in ("and", "or"):
+                restriction["mode"] = "and"
         
         self.initials = initials
         self.medials = medials
@@ -70,7 +74,7 @@ class Language:
 
         for restriction in self.restrictions:
 
-            print(f"\trestr\t\t{restriction}") if self.debug_mode else False
+            print(f"\trestr\t\t{restriction}\n\tmode\t{restriction.get("mode")}") if self.debug_mode else False
             
             inInitials = syl.initial in (restriction.get("initials") or [])
             inMedials = syl.medial in (restriction.get("medials") or [])
@@ -89,10 +93,23 @@ class Language:
             if restriction.get("codas") is not None:
                 specified_parts += 1
 
-            print(f"\tcmpnts\t\t{inInitials} {inMedials} {inNuclei} {inCodas} = {not (true_count == specified_parts and specified_parts > 0)}")  if self.debug_mode else False
+            print(f"\tcmpnts\t\t{inInitials} {inMedials} {inNuclei} {inCodas}")  if self.debug_mode else False
+            
+            mode = restriction.get("mode")
 
-            if true_count == specified_parts and specified_parts > 0:
-                return False
+            match mode:
+                case "and":
+                    print("\trestriction is and") if self.debug_mode else False
+                    if true_count == specified_parts and specified_parts > 0:
+                        print("\texit fl") if self.debug_mode else False
+                        return False
+                case "or":
+                    print("\trestriction is or") if self.debug_mode else False
+                    if true_count > 0:
+                        print("\texit fl") if self.debug_mode else False
+                        return False
+            
+            
 
         return True
 
