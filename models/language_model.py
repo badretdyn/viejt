@@ -82,12 +82,21 @@ class Language:
         
         print(f"syl\t{syl}") if self.debug_mode else False
 
-        if not syl.initial in self.initials or not syl.medial in self.medials or not syl.nucleus in self.nuclei or not syl.coda in self.codas:
-            print(f"\texit fl\t\tsome component does not exist") if self.debug_mode else False
+        if syl.initial and syl.initial not in self.initials:
+            print(f"\texit fl\t\tinitial does not exist") if self.debug_mode else False
+            return False
+        if syl.medial and syl.medial not in self.medials:
+            print(f"\texit fl\t\tmedial does not exist") if self.debug_mode else False
+            return False
+        if syl.nucleus and syl.nucleus not in self.nuclei:
+            print(f"\texit fl\t\tnucleus does not exist") if self.debug_mode else False
+            return False
+        if syl.coda and syl.coda not in self.codas:
+            print(f"\texit fl\t\tcoda does not exist") if self.debug_mode else False
             return False
 
         if self.restrictions == []:
-            print("\texit tr\t\tthere are no restrictons") if self.logging else False
+            print("\texit tr\t\tthere are no restrictons") if self.debug_mode else False
             return True
 
         for restriction in self.restrictions:
@@ -131,10 +140,10 @@ class Language:
 
     def random_syllable(self) -> Syllable:
         from random import choice
-        initial = choice(list(self.initials))
-        medial = choice(list(self.medials))
-        nucleus = choice(list(self.nuclei))
-        coda = choice(list(self.codas))
+        initial = choice(list(self.initials)) if self.initials else ""
+        medial = choice(list(self.medials)) if self.medials else ""
+        nucleus = choice(list(self.nuclei)) if self.nuclei else ""
+        coda = choice(list(self.codas)) if self.codas else ""
         return Syllable(initial, medial, nucleus, coda)
 
     def valid_random_syllable(self) -> Syllable:

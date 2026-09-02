@@ -1,0 +1,29 @@
+{
+    "name": "japanese",
+    "desc": "japonic language",
+    "initials": [
+        "",
+        "k", "g",
+        "s", "sh", "z", "j",
+        "t", "ch", "ts", "d", "dz",
+        "n",
+        "h", "f", "b", "p",
+        "y",
+        "r",
+        "w"
+    ],
+    "medials": ["", "y"],
+    "nuclei": [
+        "",
+        "a", "i", "u", "e", "o",
+        "aa", "ii", "uu", "ee", "ei", "ou"
+    ],
+    "codas": [
+        "", "n", "\\tsu"
+    ],
+    "restrictions": [
+        {
+            "nuclei": [""]
+        }
+    ]
+}

@@ -83,3 +83,49 @@ if __name__ == "__main__":
 #     print(text)
 #     syls = SyllableValidator.extract_syllables(text2)
 #     print(*syls, sep='\n')
+
+
+        Syllable("w", "u", "a", "n"),
+        Syllable("w", "u", "u", "n"),
+        Syllable("", "u", "u", ""),
+        Syllable("", "", "", ""),
+        Syllable("", "", "u", ""),
+        Syllable("", "u", "", ""),
+        Syllable("x", "i", "", ""),
+        Syllable("x", "u", "", ""),
+        Syllable("x", "", "u", ""),
+        Syllable("x", "i", "a", ""),
+        Syllable("x", "", "i", ""),
+        Syllable("x", "u", "i", ""),
+        Syllable("x", "", "a", ""),
+        Syllable("x", "", "u", ""),
+        Syllable("x", "", "ü", ""),
+        Syllable("q", "a", "u", ""),
+        Syllable("q", "u", "a", ""),
+        Syllable("q", "", "a", ""),
+        Syllable("q", "i", "a", ""),
+        Syllable("", "", "", "r"),
+        Syllable("", "", "a", "r"),
+        Syllable("", "", "e", "r"),
+        Syllable("", "u", "e", "r"),
+        Syllable("n", "u", "e", "r"),
+        Syllable("n", "", "e", "r"),
+        Syllable("v", "", "e", "r"),
+        Syllable("s", "ü", "è", "i"),
+        Syllable("s", "ü", "è", "ng"),
+        Syllable("s", "ü", "o", "i")
+
+        
+                Syllable("", "", "", ""),
+                Syllable("ngh", "i", "", ""),
+                Syllable("ngh", "", "i", ""),
+                Syllable("ngh", "i", "i", ""),
+                Syllable("ngh", "u", "", ""),
+                Syllable("ngh", "", "u", ""),
+                Syllable("ngh", "u", "u", ""),
+                Syllable("gi", "i", "", ""),
+                Syllable("gi", "", "i", ""),
+                Syllable("gi", "i", "i", ""),
+                Syllable("gi", "u", "", ""),
+                Syllable("gi", "", "u", ""),
+                Syllable("gi", "u", "u", "")

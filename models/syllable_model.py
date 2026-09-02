@@ -6,7 +6,10 @@ class Syllable:
         self.coda = coda
     
     def __str__(self):
-        return f"Syllable {{ {self.initial}, {self.medial}, {self.nucleus}, {self.coda} }}"
+        # coda = self.coda
+        # if self.coda and self.coda[0] == "\\":
+        #     coda = ""
+        return f"Syllable {{ {self.initial}, {self.medial}, {self.nucleus}, {self.coda if not (self.coda and self.coda[0] == "\\") else ""} }}"
 
     def __repr__(self):
-        return self.__str__()
+        return f"Syllable {{ {self.initial}, {self.medial}, {self.nucleus}, {self.coda} }}"
