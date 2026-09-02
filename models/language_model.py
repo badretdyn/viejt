@@ -3,14 +3,15 @@ from models.syllable_model import Syllable
 
 class Language:
     def __init__(self, initials = None, medials = None, nuclei = None, codas = None, restrictions : dict = None, name = "", desc = ""):
-        if initials is None:
-            initials = []
-        if medials is None:
-            medials = []
-        if nuclei is None:
-            nuclei = []
-        if codas is None:
-            codas = []
+        # if initials is None:
+        #     initials = []
+        # if medials is None:
+        #     medials = []
+        # if nuclei is None:
+        #     nuclei = []
+        # if codas is None:
+        #     codas = []
+
         if restrictions is None:
             restrictions = []
 
@@ -18,19 +19,36 @@ class Language:
             if restriction.get("mode") not in ("and", "or"):
                 restriction["mode"] = "and"
         
-        self.initials = initials
-        self.medials = medials
-        self.nuclei = nuclei
-        self.codas = codas
+        self.initials = set(initials or [])
+        self.medials = set(medials or [])
+        self.nuclei = set(nuclei or [])
+        self.codas = set(codas or [])
         self.restrictions = restrictions
         self.name = name
         self.desc = desc
         self.debug_mode = False
 
-    # @classmethod
-    # def from_json_file(cls, path : str):
-    #     js = JsonHandler.from_file(path)
-    #     return cls(js["initials"], js["medials"], js["nuclei"], js["codas"], js["restrictions"])
+        self._unique_graphemes = None
+        self._max_grapheme_length = None
+
+    @property
+    def unique_graphemes(self) -> set[str]:
+        if self._unique_graphemes is None:
+            all_components = self.initials | self.medials | self.nuclei | self.codas
+            self._unique_graphemes = { comp for comp in all_components if comp != "" }
+        return self._unique_graphemes
+
+    @property
+    def max_grapheme_length(self) -> int:
+        if self._max_grapheme_length is None:
+            if not self._unique_graphemes:
+                self._max_grapheme_length = 1
+            else:
+                self._max_grapheme_length = max(len(comp) for comp in self._unique_graphemes)
+        return self._max_grapheme_length
+
+    # def _find_longest_match(self, text : str, start_pos : int) -> tuple[str, int]:
+    #     return "", 0
 
     @classmethod
     def from_json_file(cls, path: str):
@@ -103,22 +121,20 @@ class Language:
                     if true_count == specified_parts and specified_parts > 0:
                         print("\texit fl") if self.debug_mode else False
                         return False
-                case "or":
+                case "or": # need to think about this mode
                     print("\trestriction is or") if self.debug_mode else False
                     if true_count > 0:
                         print("\texit fl") if self.debug_mode else False
                         return False
             
-            
-
         return True
 
     def random_syllable(self) -> Syllable:
         from random import choice
-        initial = choice(self.initials)
-        medial = choice(self.medials)
-        nucleus = choice(self.nuclei)
-        coda = choice(self.codas)
+        initial = choice(list(self.initials))
+        medial = choice(list(self.medials))
+        nucleus = choice(list(self.nuclei))
+        coda = choice(list(self.codas))
         return Syllable(initial, medial, nucleus, coda)
 
     def valid_random_syllable(self) -> Syllable:

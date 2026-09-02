@@ -8,6 +8,8 @@ if __name__ == "__main__":
 
     lang.debug_mode = False
 
+    # print(sorted(list(lang.unique_graphemes)))
+
     syls = [
         Syllable("w", "u", "a", "n"),
         Syllable("w", "u", "u", "n"),
@@ -34,7 +36,10 @@ if __name__ == "__main__":
         Syllable("", "u", "e", "r"),
         Syllable("n", "u", "e", "r"),
         Syllable("n", "", "e", "r"),
-        Syllable("v", "", "e", "r")
+        Syllable("v", "", "e", "r"),
+        Syllable("s", "ü", "è", "i"),
+        Syllable("s", "ü", "è", "ng"),
+        Syllable("s", "ü", "o", "i")
     ]
 
     for i in syls:
