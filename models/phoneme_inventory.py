@@ -16,6 +16,7 @@ class PhonemeInventory:
 
     @property
     def max_grapheme_length(self) -> int:
+        self.unique_graphemes # to avoid eternal 1 length while unique_graphemes isn't called
         if self._max_grapheme_length is None:
             if not self._unique_graphemes:
                 self._max_grapheme_length = 1

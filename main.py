@@ -1,10 +1,13 @@
-#from models.language_model import *
 from models.syllable_model import Syllable
-from models.language_facade import LanguageFacade
+from models.language_facade import Language
+
+from models.grapheme_extractor import GraphemeExtractor
+from models.phoneme_inventory import PhonemeInventory
 
 if __name__ == "__main__":
-    lang : LanguageFacade = LanguageFacade.from_json_file("data\\nihongo.json")
+    lang : Language = Language.from_json_file("data\\nihongo.json")
     # lang.validator.debug_mode = True # need global congif
+    lang.debug_mode = False #True
     usinp = int(input("test = "))
 
     match usinp:
@@ -26,3 +29,8 @@ if __name__ == "__main__":
 
             for i in syls:
                 print(f"{i}\t{lang.is_valid_syllable(i)}")
+        case 3:
+            graex = GraphemeExtractor(PhonemeInventory(["p", "t", "k", "ch"], [], ["a", "o"], []))
+            print(graex)
+            print(graex.phoneme_inventory.max_grapheme_length)
+            print(graex.phoneme_inventory.unique_graphemes)
