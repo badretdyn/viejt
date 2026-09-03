@@ -10,18 +10,53 @@
         "h", "f", "b", "p",
         "y",
         "r",
-        "w"
+        "v", "w"
     ],
     "medials": ["", "y"],
     "nuclei": [
         "",
         "a", "i", "u", "e", "o",
-        "aa", "ii", "uu", "ee", "ei", "ou"
+        "aa", "ii", "uu", "ee", "ei", "oo", "ou"
     ],
     "codas": [
         "", "n", "\\tsu"
     ],
     "restrictions": [
+        {
+            "initials": [
+                "",
+                "s", "sh", "z", "j",
+                "t", "ch", "ts", "d", "dz",
+                "y",
+                "v", "w"
+            ],
+            "medials": ["y"]
+        },
+        {
+            "initials": [
+                "s", "z",
+                "t", "ts", "d",
+                "y"
+            ],
+            "nuclei": ["i", "ii", "e", "ee", "ei"]
+        },
+        {
+            "initials": [
+                "k", "g",
+                "s", "sh", "z", "j",
+                "t", "ch", "ts", "d", "dz",
+                "n",
+                "h", "f", "b", "p",
+                "y",
+                "r",
+                "v", "w"
+            ],
+            "nuclei": [""]
+        },
+        {
+            "medials": ["y"],
+            "nuclei": ["i", "ii", "e", "ee", "ei"]
+        },
         {
             "nuclei": [""]
         }

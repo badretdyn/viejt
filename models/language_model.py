@@ -63,20 +63,20 @@ class Language:
             js.get("desc", "")
         )
 
-    def random_syl(self) -> Syllable:
-        import random
+    # def random_syl(self) -> Syllable:
+    #     import random
 
-        random_initial = random.randint(0, len(self.initials))
-        random_medial = random.randint(0, len(self.medials))
-        random_nucleus = random.randint(0, len(self.nuclei) - 1)
-        random_coda = random.randint(0, len(self.codas))
+    #     random_initial = random.randint(0, len(self.initials))
+    #     random_medial = random.randint(0, len(self.medials))
+    #     random_nucleus = random.randint(0, len(self.nuclei) - 1)
+    #     random_coda = random.randint(0, len(self.codas))
 
-        initial = (self.initials + [""])[random_initial]
-        medial = (self.medials + [""])[random_medial]
-        nucleus = self.nuclei[random_nucleus]
-        coda = (self.codas + [""])[random_coda]
+    #     initial = (self.initials + [""])[random_initial]
+    #     medial = (self.medials + [""])[random_medial]
+    #     nucleus = self.nuclei[random_nucleus]
+    #     coda = (self.codas + [""])[random_coda]
 
-        return Syllable(initial, medial, nucleus, coda)
+    #     return Syllable(initial, medial, nucleus, coda)
 
     def is_valid_syllable(self, syl : Syllable):
         
