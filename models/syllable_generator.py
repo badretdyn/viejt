@@ -1,9 +1,10 @@
 from models.syllable_model import Syllable
+from models.app_config import AppConfig
 
 class SyllableGenerator:
-    def __init__(self, validator):
+    def __init__(self, validator, app_config):
         self.validator = validator
-        self.debug_mode = False
+        self.app_config = app_config or AppConfig()
 
     def random_syllable(self) -> Syllable:
         from random import choice

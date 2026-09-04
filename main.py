@@ -1,15 +1,21 @@
 from models.syllable_model import Syllable
 from models.language_facade import Language
-
 from models.grapheme_extractor import GraphemeExtractor
 from models.phoneme_inventory import PhonemeInventory
+from models.app_config import AppConfig
 
 if __name__ == "__main__":
+    appcon = AppConfig.from_json_file("app_config.json")
     lang : Language = Language.from_json_file("data\\nihongo.json")
-    # lang.validator.debug_mode = True # need global congif
-    lang.debug_mode = False #True
-    usinp = int(input("test = "))
 
+    conf = AppConfig()
+    conf.debug_mode = False
+    lang.app_config = conf
+    print(lang._app_config)
+    print(lang.validator.app_config)
+    print(lang.generator.app_config)
+    
+    usinp = int(input("test = "))
     match usinp:
         case 0:
             pass
