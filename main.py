@@ -31,12 +31,22 @@ if __name__ == "__main__":
                 Syllable("k", "", "", "i"),
                 Syllable("n", "", "a", ""),
                 Syllable("n", "", "", ""),
+                Syllable("k", "", "a", "\\tsu"),
             ]
 
             for i in syls:
                 print(f"{i}\t{lang.is_valid_syllable(i)}")
         case 3:
-            graex = GraphemeExtractor(PhonemeInventory(["p", "t", "k", "ch"], [], ["a", "o"], []))
+            from models.syllable_validator import SyllableValidator
+            graex = GraphemeExtractor(PhonemeInventory( ["p", "t", "k", "ch"], [], ["a", "o"], []))
             print(graex)
             print(graex.phoneme_inventory.max_grapheme_length)
             print(graex.phoneme_inventory.unique_graphemes)
+
+        case 4:
+            appc = AppConfig()
+            appc.debug_mode = True
+            lang.app_config = appc
+            text = input("text = ")
+            grapheme = lang.grapheme_extractor._get_grapheme(text)
+            print(f"grapheme = {grapheme}")

@@ -2,7 +2,7 @@ from models.syllable_model import Syllable
 from models.app_config import AppConfig
 
 class SyllableValidator:
-    def __init__(self, phoneme_inventory, restrictions, app_config):
+    def __init__(self, phoneme_inventory, restrictions, app_config = None):
         self.phoneme_inventory = phoneme_inventory
 
         for restriction in restrictions:
