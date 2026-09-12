@@ -60,5 +60,15 @@
         {
             "nuclei": [""]
         }
+    ],
+    "transliterations": [
+        {
+            "name": "cyrillic",
+            "initials": [
+                ["k", "к"],
+                ["ch", "ч"],
+                ["z", "дз"]
+            ]
+        }
     ]
 }

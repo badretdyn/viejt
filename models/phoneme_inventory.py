@@ -20,7 +20,7 @@ class PhonemeInventory:
     @property
     def max_grapheme_length(self) -> int:
         self.unique_graphemes # to avoid eternal 1 length while unique_graphemes isn't called
-        print(f"pi\tug = {self._unique_graphemes},\n\t\tformula:max({[comp for comp in self._unique_graphemes if not "\\" in comp]})") if self.app_config.debug_mode else False
+        #print(f"pi\tug = {self._unique_graphemes},\n\t\tformula:max({[comp for comp in self._unique_graphemes if not "\\" in comp]})") if self.app_config.debug_mode else False
         if self._max_grapheme_length is None:
             if not self._unique_graphemes:
                 self._max_grapheme_length = 1

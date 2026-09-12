@@ -5,10 +5,11 @@ from utils.json_handler import JsonHandler
 from models.syllable_model import Syllable
 from models.grapheme_extractor import GraphemeExtractor
 from models.app_config import AppConfig
+from models.transliterator_model import Transliterator
 
 class Language:
-    def __init__(self, initials, medials, nuclei, codas, restrictions, name = None, desc = None,\
-                 app_config = None):
+    def __init__(self, initials, medials, nuclei, codas, restrictions, transliterations = None,\
+                 name = None, desc = None, app_config = None):
         
         self._app_config = app_config or AppConfig()
 
@@ -16,6 +17,7 @@ class Language:
         self.validator = SyllableValidator(self.phoneme_inventory, restrictions, self._app_config)
         self.generator = SyllableGenerator(self.validator, self._app_config)
         self.grapheme_extractor = GraphemeExtractor(self.phoneme_inventory, self._app_config)
+        self.transliterator = Transliterator(self.phoneme_inventory, transliterations)
 
         self.name = name or "lang_" + str(hash(self.phoneme_inventory)) #  for random string
         self.desc = desc or self.name + "_desc"

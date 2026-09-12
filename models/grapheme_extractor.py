@@ -18,14 +18,14 @@ class GraphemeExtractor:
 
 
             for graph_len in range(max_grapheme_length, 0, -1):
-                print(f"ge\t\tfr gl:{graph_len}, mgl:{max_grapheme_length}") if self.app_config.debug_mode else False
+                print(f"ge\t\tfr i:{graph_len} char:{char}") if self.app_config.debug_mode else False
 
                 grapheme = ""
                 try:
-                    grapheme = text[char:graph_len]
-                    print(f"ge\t\tgrapheme: {grapheme}") if self.app_config.debug_mode else False
+                    grapheme = text[char : char+graph_len]
+                    print(f"ge\t\t\tgrapheme: {grapheme}") if self.app_config.debug_mode else False
                 except Exception as e:
-                    print(f"ge\t\terror: {e}") if self.app_config.debug_mode else False
+                    print(f"ge\t\t\terror: {e}") if self.app_config.debug_mode else False
                 
                 if grapheme in self.phoneme_inventory.unique_graphemes:
                     return grapheme, char
