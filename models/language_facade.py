@@ -17,13 +17,13 @@ class Language:
         self.validator = SyllableValidator(self.phoneme_inventory, restrictions, self._app_config)
         self.generator = SyllableGenerator(self.validator, self._app_config)
         self.grapheme_extractor = GraphemeExtractor(self.phoneme_inventory, self._app_config)
-        self.transliterator = Transliterator(self.phoneme_inventory, transliterations)
+        self.transliterator = Transliterator(self.phoneme_inventory, transliterations, self._app_config)
 
         self.name = name or "lang_" + str(hash(self.phoneme_inventory)) #  for random string
         self.desc = desc or self.name + "_desc"
 
     @classmethod
-    def from_json_file(cls, path: str):
+    def from_json_file(cls, path: str, app_config : AppConfig = None):
         js = JsonHandler.from_file(path)
         return cls(
             js.get("initials", []),
@@ -31,8 +31,10 @@ class Language:
             js.get("nuclei", []),
             js.get("codas", []),
             js.get("restrictions", []),
+            js.get("transliterations", []),
             js.get("name", ""),
             js.get("desc", ""),
+            app_config
         )
 
     def is_valid_syllable(self, syl) -> bool:
@@ -55,14 +57,19 @@ class Language:
         self.validator.app_config = value
         self.generator.app_config = value
         self.grapheme_extractor.app_config = value
+        self.transliterator.app_config = value
 
-    def __str__(self, separator = " "):
+    def dump(self, separator = " "):
         return f"Language {{ " + \
             f"phoneme_inventory:{self.phoneme_inventory},{separator}" + \
             f"validator:{self.validator},{separator}" + \
             f"generator:{self.generator},{separator}" + \
             f"grapheme_extractor:{self.grapheme_extractor},{separator}" + \
+            f"transliterator:{self.transliterator},{separator}" + \
             f"app_config:{self._app_config} }}"
+
+    def __str__(self):
+        return self.dump()
     
     def __repr__(self):
-        return self.__str__()
+        return f"Language(name={self.name!r})"

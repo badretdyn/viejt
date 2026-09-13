@@ -21,7 +21,7 @@ class SyllableGenerator:
         return syl
 
     def __str__(self):
-        return f"SyllableGenerator {{ validator:{self.validator!r} }}"
+        return f"SyllableGenerator {{ validator:{self.validator!r}, app_config: {self.app_config} }}"
 
     def __repr__(self):
         return self.__str__()

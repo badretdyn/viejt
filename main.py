@@ -6,14 +6,7 @@ from models.app_config import AppConfig
 
 if __name__ == "__main__":
     appcon = AppConfig.from_json_file("app_config.json")
-    lang : Language = Language.from_json_file("data\\nihongo.json")
-
-    conf = AppConfig()
-    conf.debug_mode = False
-    lang.app_config = conf
-    print(lang._app_config)
-    print(lang.validator.app_config)
-    print(lang.generator.app_config)
+    lang : Language = Language.from_json_file("data\\nihongo.json", appcon)
     
     usinp = int(input("test = "))
     match usinp:
@@ -37,6 +30,7 @@ if __name__ == "__main__":
             for i in syls:
                 print(f"{i}\t{lang.is_valid_syllable(i)}")
         case 3:
+            #phoneme inventory
             from models.syllable_validator import SyllableValidator
             graex = GraphemeExtractor(PhonemeInventory( ["p", "t", "k", "ch"], [], ["a", "o"], []))
             print(graex)
@@ -44,6 +38,7 @@ if __name__ == "__main__":
             print(graex.phoneme_inventory.unique_graphemes)
 
         case 4:
+            #grapheme extractor
             appc = AppConfig()
             appc.debug_mode = True
             lang.app_config = appc
