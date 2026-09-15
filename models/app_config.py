@@ -1,6 +1,6 @@
 class AppConfig:
-    def __init__(self):
-        self.debug_mode = False
+    def __init__(self, debug_mode = None):
+        self.debug_mode = debug_mode or False
 
     @classmethod
     def from_json_file(cls, path):
@@ -10,8 +10,11 @@ class AppConfig:
         instance.debug_mode = js.get("debug mode", False)
         return instance
 
-    def __str__(self):
+    def dump(self):
         return f"AppConfig {{ debug_mode:{self.debug_mode} }}"
 
+    def __str__(self):
+        return self.dump()
+
     def __repr__(self):
-        return self.__repr__()
+        return f"AppConfig(debug_mode={self.debug_mode!r})"

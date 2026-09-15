@@ -19,7 +19,7 @@ class Language:
         self.grapheme_extractor = GraphemeExtractor(self.phoneme_inventory, self._app_config)
         self.transliterator = Transliterator(self.phoneme_inventory, transliterations, self._app_config)
 
-        self.name = name or "lang_" + str(hash(self.phoneme_inventory)) #  for random string
+        self.name = name or "lang_" + str(abs(hash(tuple(initials))))[:4] #  for random string
         self.desc = desc or self.name + "_desc"
 
     @classmethod

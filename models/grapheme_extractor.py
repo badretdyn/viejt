@@ -9,33 +9,37 @@ class GraphemeExtractor:
 
     def _get_grapheme(self, text : str):
         max_grapheme_length = self.phoneme_inventory.max_grapheme_length
-        print(f"ge\tmgl:{max_grapheme_length}") if self.app_config.debug_mode else False
+        if self.app_config: print(f"grex\tmxgrlen={max_grapheme_length}")
 
         char = 0
         grapheme = ""
         while char < len(text):
-            print(f"ge\twh {char} < {len(text)}") if self.app_config.debug_mode else False
-
+            if self.app_config: print(f"grex\twh {char} < {len(text)}")
 
             for graph_len in range(max_grapheme_length, 0, -1):
-                print(f"ge\t\tfr i:{graph_len} char:{char}") if self.app_config.debug_mode else False
+                if self.app_config: print(f"grex\t\tfr i={graph_len} char:{char}")
 
                 grapheme = ""
                 try:
                     grapheme = text[char : char+graph_len]
-                    print(f"ge\t\t\tgrapheme: {grapheme}") if self.app_config.debug_mode else False
+                    if self.app_config: print(f"grex\t\t\tgr={grapheme}")
                 except Exception as e:
-                    print(f"ge\t\t\terror: {e}") if self.app_config.debug_mode else False
+                    if self.app_config: print(f"grex\t\t\terror={e}")
                 
                 if grapheme in self.phoneme_inventory.unique_graphemes:
+                    if self.app_config: print(f"grex\t\trt={grapheme}, {char}")
                     return grapheme, char
 
             char += 1
 
+        if self.app_config: print(f"grex\t={grapheme}, {char}")
         return grapheme, char
 
-    def __str__(self):
+    def dump(self):
         return f"GraphemeExtractor {{ phoneme_inventory:{self.phoneme_inventory} }}"
 
+    def __str__(self):
+        return self.dump()
+
     def __repr__(self):
-        return self.__str__()
+        return f"GraphemeExtractor(app_config={self.app_config!r})"

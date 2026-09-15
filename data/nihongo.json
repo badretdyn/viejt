@@ -21,6 +21,7 @@
     "codas": [
         "", "n", "\\tsu"
     ],
+    
     "restrictions": [
         {
             "initials": [
@@ -61,14 +62,25 @@
             "nuclei": [""]
         }
     ],
+    
     "transliterations": [
         {
             "name": "cyrillic",
-            "initials": [
-                ["k", "к"],
-                ["ch", "ч"],
-                ["z", "дз"]
-            ]
+            "initials": {
+                "k": "к",
+                "ch": "ч",
+                "z": "дз"
+            }
+        },
+        {
+            "name": "kunrei shiki",
+            "initials": {
+                "ch": "t",
+                "sh": "s"
+            },
+            "codas": {
+                "n": "nn"
+            }
         }
     ]
 }

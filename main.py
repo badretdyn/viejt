@@ -12,9 +12,11 @@ if __name__ == "__main__":
     match usinp:
         case 0:
             pass
+
         case 1:
             for i in range(0, 20):
                 print(repr(lang.random_valid_syllable()))
+            
         case 2:
             syls = [
                 Syllable("", "", "a", ""),
@@ -28,7 +30,8 @@ if __name__ == "__main__":
             ]
 
             for i in syls:
-                print(f"{i}\t{lang.is_valid_syllable(i)}")
+                print(f"{i.dump()}\t{lang.is_valid_syllable(i)}")
+            
         case 3:
             #phoneme inventory
             from models.syllable_validator import SyllableValidator
@@ -39,9 +42,17 @@ if __name__ == "__main__":
 
         case 4:
             #grapheme extractor
-            appc = AppConfig()
-            appc.debug_mode = True
-            lang.app_config = appc
             text = input("text = ")
             grapheme = lang.grapheme_extractor._get_grapheme(text)
             print(f"grapheme = {grapheme}")
+
+        case 5:
+            #printiqui
+            print(repr(lang))
+            print(repr(lang.validator))
+            print(repr(lang.generator))
+            print(repr(lang.grapheme_extractor))
+            print(repr(lang.transliterator))
+
+        case 6:
+            print(*lang.transliterator.transliterations)

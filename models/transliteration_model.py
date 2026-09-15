@@ -6,8 +6,8 @@ class Transliteration:
         self.codas = codas
         self.name = name
 
-    def __str__(self):
-        return f"Transliteration {{ name: {self.name}, initials: {self.initials}, initials: {self.medials}, initials: {self.nuclei}, initials: {self.codas} }}"
+    def dump(self):
+        return f"Transliteration(name={self.name!r}, initials={self.initials!r}, medials={self.medials!r}, nuclei={self.nuclei!r}, codas={self.codas!r})"
 
     def __repr__(self):
-        return self.__str__()
+        return f"Transliteration(name={self.name!r})"

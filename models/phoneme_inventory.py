@@ -28,8 +28,11 @@ class PhonemeInventory:
                 self._max_grapheme_length = max(len(comp) for comp in self._unique_graphemes if not "\\" in comp)
         return self._max_grapheme_length
 
-    def __str__(self, separator = " "):
+    def dump(self, separator = " "):
         return f"PhonemeInventory {{ initials:{self.initials!r},{separator}medials:{self.medials!r},{separator}nuclei:{self.nuclei!r},{separator}codas:{self.codas!r} }}"
 
+    def __str__(self):
+        return self.dump()
+
     def __repr__(self):
-        return self.__str__()
+        return f"PhonemeInventory(app_config={self.app_config!r})"

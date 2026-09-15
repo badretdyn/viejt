@@ -4,7 +4,7 @@ from models.app_config import AppConfig
 class SyllableGenerator:
     def __init__(self, validator, app_config):
         self.validator = validator
-        self.app_config = app_config or AppConfig()
+        self._app_config = app_config or AppConfig()
 
     def random_syllable(self) -> Syllable:
         from random import choice
@@ -20,8 +20,20 @@ class SyllableGenerator:
             syl = self.random_syllable()
         return syl
 
+    @property
+    def app_config(self):
+        return self._app_config
+
+    @app_config.setter
+    def app_config(self, value: AppConfig):
+        self._app_config = value
+        self.validator.app_config = value
+
+    def dump(self):
+        return f"SyllableGenerator {{ validator:{self.validator}, app_config: {self.app_config} }}"
+
     def __str__(self):
-        return f"SyllableGenerator {{ validator:{self.validator!r}, app_config: {self.app_config} }}"
+        return self.dump()
 
     def __repr__(self):
-        return self.__str__()
+        return f"SyllableGenerator(validator={self.validator!r}, app_config={self.app_config!r})"
