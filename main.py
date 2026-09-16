@@ -55,4 +55,32 @@ if __name__ == "__main__":
             print(repr(lang.transliterator))
 
         case 6:
+            #transliteration
             print(*lang.transliterator.transliterations)
+
+            syls = [
+                Syllable("k", "", "a", ""),
+                Syllable("z", "", "a", ""),
+                Syllable("ch", "", "i", ""),
+                Syllable("sh", "", "a", "")
+            ]
+
+            for i in syls:
+                print(f"{i.dump()}\t{lang.transliterator.transliterate(i, "cyrillic")}")
+
+        case 7:
+            # evals
+            syl = Syllable("b", "", "a", "")
+            representation = repr(syl)
+            print( f"syl={syl}\nrepresentation={representation}\nsyl == eval(representation)={syl == eval(representation)}" )
+
+            tests = [
+                Syllable("a'b", "", 'c"d', ""),
+                Syllable("a\nb", "", "c\td", ""),
+                Syllable("\\", "", "", ""),
+                Syllable("日本語", "", "π", ""),
+                Syllable("", "", "", ""),
+            ]
+
+            for t in tests:
+                print(f"{repr(t)} {t == eval(repr(t))}")
