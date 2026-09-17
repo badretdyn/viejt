@@ -6,7 +6,7 @@ from models.app_config import AppConfig
 
 if __name__ == "__main__":
     appcon = AppConfig.from_json_file("app_config.json")
-    lang : Language = Language.from_json_file("data\\nihongo.json", appcon)
+    lang : Language = Language.from_json_file("data\\viet.json", appcon)
     
     usinp = int(input("test = "))
     match usinp:
@@ -84,3 +84,30 @@ if __name__ == "__main__":
 
             for t in tests:
                 print(f"{repr(t)} {t == eval(repr(t))}")
+
+        case 8:
+            # viejt
+
+            syls = []
+            for i in range(0, 20):
+                syls.append(lang.random_valid_syllable())
+
+            for i in syls:
+                print(f"{i.dump()}\t{lang.transliterator.transliterate(i, "viejt")}")
+
+        case 9:
+            # choẩo must not == choooeo but chuooeu
+            # TODO: chuoeeru -- no, chuoeeur -- yes
+            # is it necessary changing tilde tone as f but not doubling vowel + r as it is now
+
+            syls = [
+                Syllable ( initial='ch', medial='o', nucleus='ẩ', coda='o' ),
+                Syllable ( initial='ch', medial='o', nucleus='ẫ', coda='o' ),
+                Syllable ( initial='gi', medial='i', nucleus='ẫ', coda='y' ),
+                Syllable ( initial='m', medial='i', nucleus='ẫ', coda='y' ),
+                Syllable ( initial='d', medial='', nucleus='ệ', coda='i' ), # must zeij not zeji
+                Syllable ( initial='b', medial='', nucleus='ẵ', coda='t' )
+            ]
+
+            for syl in syls:
+                print(f"{syl} {lang.transliterator.transliterate(syl, "viejt")}\t{lang.validator.is_valid(syl)}")

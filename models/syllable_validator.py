@@ -14,28 +14,28 @@ class SyllableValidator:
 
     def is_valid(self, syl : Syllable):
         
-        if self.app_config: print(f"syva\tsyl={syl}")
+        if self.app_config.debug_mode: print(f"syva\tsyl={syl}, {self.app_config}")
 
         if syl.initial and syl.initial not in self.phoneme_inventory.initials:
-            if self.app_config: print("syva\trt=fl, initial does not exist")
+            if self.app_config.debug_mode: print("syva\trt=fl, initial does not exist")
             return False
         if syl.medial and syl.medial not in self.phoneme_inventory.medials:
-            if self.app_config: print("syva\trt=fl, medial does not exist")
+            if self.app_config.debug_mode: print("syva\trt=fl, medial does not exist")
             return False
         if syl.nucleus and syl.nucleus not in self.phoneme_inventory.nuclei:
-            if self.app_config: print("syva\trt=fl, nucleus does not exist")
+            if self.app_config.debug_mode: print("syva\trt=fl, nucleus does not exist")
             return False
         if syl.coda and syl.coda not in self.phoneme_inventory.codas:
-            if self.app_config: print("syva\trt=fl, coda does not exist")
+            if self.app_config.debug_mode: print("syva\trt=fl, coda does not exist")
             return False
 
         if self.restrictions == []:
-            if self.app_config: print("syva\trt=tr, there are no restrictons")
+            if self.app_config.debug_mode: print("syva\trt=tr, there are no restrictons")
             return True
 
         for restriction in self.restrictions:
 
-            if self.app_config: print(f"syva\tfr rstr={restriction}, mode={restriction.get("mode")}")
+            if self.app_config.debug_mode: print(f"syva\tfr rstr={restriction}")
             
             inInitials = syl.initial in (restriction.get("initials") or [])
             inMedials = syl.medial in (restriction.get("medials") or [])
@@ -54,23 +54,23 @@ class SyllableValidator:
             if restriction.get("codas") is not None:
                 specified_parts += 1
 
-            if self.app_config: print(f"syva\t\tcmpnts=[{inInitials}, {inMedials}, {inNuclei}, {inCodas}]")
+            if self.app_config.debug_mode: print(f"syva\t\tcmpnts=[{inInitials}, {inMedials}, {inNuclei}, {inCodas}]")
             
             mode = restriction.get("mode")
 
             match mode:
                 case "and":
-                    if self.app_config: print("syva\t\trstr=and")
+                    if self.app_config.debug_mode: print(f"syva\t\trstr=and\t{true_count} == {specified_parts} and {specified_parts} > 0")
                     if true_count == specified_parts and specified_parts > 0:
-                        if self.app_config: print("syva\t\trt=fl")
+                        if self.app_config.debug_mode: print("syva\t\trt=fl")
                         return False
                 case "or": # need to think about this mode
-                    if self.app_config: print("syva\t\trstr=or")
+                    if self.app_config.debug_mode: print("syva\t\trstr=or")
                     if true_count > 0:
-                        if self.app_config: print("syva\t\trt=fl")
+                        if self.app_config.debug_mode: print("syva\t\trt=fl")
                         return False
 
-        if self.app_config: print("syva\trt=tr")
+        if self.app_config.debug_mode: print("syva\trt=tr")
         return True
 
     def dump(self, separator = " "):
